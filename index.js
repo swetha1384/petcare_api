@@ -1,4 +1,5 @@
 "use strict";
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -31,9 +32,8 @@ async function notifyAdmin(task, email) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: "swenagarajan2004@gmail.com",
-            pass: "rjms pvsd mdem uvpj", // App Password
-        },
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD,         },
     });
 
     const info = await transporter.sendMail({
@@ -68,7 +68,7 @@ async function checkTasks() {
     }
 }
 
-app.post("/login", async (req, res) => {
+app.post("/", async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await PetcareModel.findOne({ email });
@@ -196,8 +196,8 @@ app.post('/contact', (req, res) => {
 
 
 
-app.listen(7000, () => {
-    console.log("Server is running on port 7000");
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
 });
 
 // Schedule the checkTasks function to run every minute for testing
