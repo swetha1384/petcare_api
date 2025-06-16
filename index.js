@@ -15,6 +15,7 @@ const bcrypt = require('bcrypt');
 const connectDB = require('./db');
 
 // Connect to database
+require('dotenv').config();
 connectDB();
 
 const app = express();
